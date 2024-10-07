@@ -16,5 +16,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwindcss": "^3.4.13"
+  },
+  "scripts": {
+    "build": "vite build --outDir public"
   }
 }

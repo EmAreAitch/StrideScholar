@@ -52,3 +52,7 @@ gem "inertia_rails-contrib", "~> 0.2.1"
 gem "vite_rails", "~> 3.0"
 
 gem "overmind", "~> 2.5"
+
+gem "dockerfile-rails", ">= 1.6", :group => :development
+
+gem "redis", "~> 5.3"
