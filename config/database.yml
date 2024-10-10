@@ -81,6 +81,11 @@ test:
 #
 production:
   <<: *default
-  database: stride_scholar_production
-  username: stride_scholar
+  database: defaultdb
+  username: avnadmin
   password: <%= ENV["STRIDE_SCHOLAR_DATABASE_PASSWORD"] %>
+  host: stride-scholar-pg-stride-scholar.f.aivencloud.com
+  port: 24317
+  pool: 20
+  timeout: 5000
+  sslmode: require

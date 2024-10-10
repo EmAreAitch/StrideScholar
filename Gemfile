@@ -56,6 +56,6 @@ gem "dockerfile-rails", ">= 1.6", :group => :development
 
 gem "redis", "~> 5.3"
 
-gem "overmind", "~> 2.5"
-
 gem "foreman", "~> 0.88.1"
+
+gem "dotenv-rails", "~> 3.1"
