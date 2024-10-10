@@ -1,0 +1,41 @@
+version: '3'
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5433:5432"
+    logging:
+      driver: "none"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bash -c "bin/dev"
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/rails:cached
+      - node_modules:/rails/node_modules
+      - bundle:/usr/local/bundle        
+    ports:
+      - "3000:3000"            
+      - "3036:3036" 
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:${DB_PASSWORD}@db:5432/stride_scholar
+      DATABASE_PASSWORD: ${DB_PASSWORD}      
+      RAILS_ENV: ${RAILS_ENV:-development}
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      VITE_RUBY_HOST: 0.0.0.0
+
+
+volumes:
+  postgres_data:
+  node_modules:
+  bundle:

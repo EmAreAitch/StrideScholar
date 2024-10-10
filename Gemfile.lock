@@ -103,6 +103,7 @@ GEM
     drb (2.2.1)
     dry-cli (1.1.0)
     erubi (1.13.0)
+    foreman (0.88.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.6)
@@ -301,6 +302,7 @@ DEPENDENCIES
   capybara
   debug
   dockerfile-rails (>= 1.6)
+  foreman (~> 0.88.1)
   inertia_rails (~> 3.2)
   inertia_rails-contrib (~> 0.2.1)
   overmind (~> 2.5)

@@ -2,18 +2,21 @@
 
 export PORT="${PORT:-3000}"
 
-if command -v overmind 1> /dev/null 2>&1
-then
-  overmind start -f Procfile.dev "$@"
-  exit $?
-fi
+rm -f tmp/pids/server.pid
 
-if command -v hivemind 1> /dev/null 2>&1
-then
-  echo "Hivemind is installed. Running the application with Hivemind..."
-  exec hivemind Procfile.dev "$@"
-  exit $?
-fi
+# if command -v overmind 1> /dev/null 2>&1
+# then    
+#   rm -f .overmind.sock  
+#   overmind start -f Procfile.dev "$@"
+#   exit $?
+# fi
+
+# if command -v hivemind 1> /dev/null 2>&1
+# then
+#   echo "Hivemind is installed. Running the application with Hivemind..."
+#   exec hivemind Procfile.dev "$@"
+#   exit $?
+# fi
 
 if gem list --no-installed --exact --silent foreman; then
   echo "Installing foreman..."
