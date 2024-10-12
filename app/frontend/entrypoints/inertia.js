@@ -1,6 +1,7 @@
 import { createInertiaApp } from '@inertiajs/react'
 import { createElement } from 'react'
 import { createRoot } from 'react-dom/client'
+import Layout from '../layouts/Application'
 
 createInertiaApp({
   // Set default page title
@@ -15,7 +16,10 @@ createInertiaApp({
 
   resolve: (name) => {
     const pages = import.meta.glob('../pages/**/*.jsx', { eager: true })
-    return pages[`../pages/${name}.jsx`]
+    let page = pages[`../pages/${name}.jsx`]
+    page.default.layout =
+      page.default.layout || ((page) => createElement(Layout, {children: page}))
+    return page
 
     // To use a default layout, import the Layout component
     // and use the following lines.

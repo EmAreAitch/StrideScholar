@@ -1,5 +1,7 @@
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import { useState } from 'react'
+
+import {usersSessions, usersRegistrations} from '~/api'
 
 import reactSvg from '/assets/react.svg'
 import inertiaSvg from '/assets/inertia.svg'
@@ -54,6 +56,9 @@ export default function InertiaExample({ name }) {
         <p className={cs.readTheDocs}>
           Click on the Inertia, Vite Ruby, and React logos to learn more
         </p>
+          <Link href={usersSessions.destroy.path()} className="text-blue-500 hover:underline block mx-auto" method="delete" as="button">Sign out</Link>
+          <Link href={usersRegistrations.edit.path()} className="text-blue-500 hover:underline block mx-auto" as="button">Update user</Link>
+          <Link href={usersRegistrations.destroy.path()} className="text-blue-500 hover:underline block mx-auto" as="button" method="delete">Delete account</Link>
       </div>
     </>
   )

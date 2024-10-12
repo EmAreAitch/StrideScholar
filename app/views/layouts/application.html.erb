@@ -19,8 +19,7 @@
     <%= vite_client_tag %>
     <%= vite_javascript_tag "inertia" %>
     <%= inertia_headers %>
-
-      <%= vite_stylesheet_tag "application" %>    <%= vite_javascript_tag 'application' %>
+    <%= vite_javascript_tag 'application' %>
     <!--
       If using a TypeScript entrypoint file:
         vite_typescript_tag 'application'
@@ -33,7 +32,7 @@
 
   </head>
 
-  <body>
+  <body>    
     <%= yield %>
   </body>
 </html>
