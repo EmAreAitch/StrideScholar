@@ -11,6 +11,7 @@ export default function PasswordReset() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    form.transform((data) => ({ user: data }));    
     form.post(usersPasswords.create.path()); // Adjust the path according to your routes
   };
 
@@ -18,16 +19,7 @@ export default function PasswordReset() {
     <>
       <Head title="Forgot your password?" />
       <h2 className="text-2xl font-bold mb-4">Forgot your password?</h2>
-      <form onSubmit={handleSubmit} className="max-w-md">
-        {/* Error Messages */}
-        {Object.keys(errors).length > 0 && (
-          <div className="text-red-500 mb-4">
-            {Object.values(errors).flat().map((error, index) => (
-              <div key={index}>{error}</div>
-            ))}
-          </div>
-        )}
-        
+      <form onSubmit={handleSubmit} className="max-w-md">      
         <div className="field mb-4">
           <label htmlFor="email" className="block mb-1">Email</label>
           <input

@@ -1,10 +1,15 @@
 import { usePage } from '@inertiajs/react'
 import { useEffect } from 'react'
 import { Notyf } from 'notyf';
+import { router } from '@inertiajs/react'
+import { usersSessions } from '~/api';
+
 import 'notyf/notyf.min.css';
 
 export default function Layout({ children }) {
-  const { flash } = usePage().props  
+  const { flash, is_signed_in } = usePage().props  
+
+  window.router = router
 
   useEffect(() => {
     const notyf = new Notyf();
@@ -18,9 +23,11 @@ export default function Layout({ children }) {
           break;
         default:
           alert(flash[type])
-      }
+      }      
 
+      delete flash[type]
     }
+
   })
 
 

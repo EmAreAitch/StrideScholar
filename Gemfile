@@ -39,7 +39,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  
+  gem "dotenv-rails", "~> 3.1"
 end
 
 group :test do
@@ -60,7 +60,7 @@ gem "redis", "~> 5.3"
 
 gem "foreman", "~> 0.88.1"
 
-gem "dotenv-rails", "~> 3.1"
+
 
 gem "ostruct", "~> 0.6.0"
 

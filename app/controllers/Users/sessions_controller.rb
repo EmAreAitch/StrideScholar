@@ -9,6 +9,12 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
+  def destroy
+    super do | resource |
+      redirect_to new_user_session_path and return
+    end
+  end
+
   protected
 
   # If you have extra params to permit, append them to the sanitizer.
