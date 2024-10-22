@@ -1,7 +1,7 @@
 import { Head, Link } from '@inertiajs/react'
 import { useState } from 'react'
 
-import {usersSessions, usersRegistrations} from '~/api'
+import {usersSessions, usersRegistrations, dashboard} from '~/api'
 
 import reactSvg from '/assets/react.svg'
 import inertiaSvg from '/assets/inertia.svg'
@@ -49,8 +49,7 @@ export default function InertiaExample({ name }) {
             count is {count}
           </button>
           <p>
-            Edit <code>app/frontend/pages/InertiaExample.jsx</code> and save to
-            test HMR
+            <Link href={dashboard.index.path()} className="text-blue-500 hover:underline block mx-auto">Dashboard</Link>
           </p>
         </div>
         <p className={cs.readTheDocs}>

@@ -38,8 +38,7 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
-  gem "dotenv-rails", "~> 3.1"
+  gem "web-console"    
 end
 
 group :test do
@@ -48,6 +47,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
+gem "dotenv-rails", "~> 3.1"
 gem "inertia_rails", "~> 3.2"
 gem "inertia_rails-contrib", "~> 0.2.1"
 
@@ -65,3 +65,4 @@ gem "foreman", "~> 0.88.1"
 gem "ostruct", "~> 0.6.0"
 
 gem "devise", "~> 4.9"
+gem "faker", "~> 3.5"

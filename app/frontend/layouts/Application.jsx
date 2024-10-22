@@ -1,15 +1,12 @@
 import { usePage } from '@inertiajs/react'
 import { useEffect } from 'react'
 import { Notyf } from 'notyf';
-import { router } from '@inertiajs/react'
 import { usersSessions } from '~/api';
 
 import 'notyf/notyf.min.css';
 
 export default function Layout({ children }) {
-  const { flash, is_signed_in } = usePage().props  
-
-  window.router = router
+  const { flash, is_signed_in } = usePage().props    
 
   useEffect(() => {
     const notyf = new Notyf();
@@ -32,12 +29,8 @@ export default function Layout({ children }) {
 
 
   return (
-    <main>
-      <header></header>
-      <article>        
-        {children}
-      </article>
-      <footer></footer>
+    <main>       
+        {children}      
     </main>
   )
 }

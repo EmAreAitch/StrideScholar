@@ -10,9 +10,65 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_11_092606) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_21_114428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chats", force: :cascade do |t|
+    t.text "message"
+    t.string "chatable_type", null: false
+    t.bigint "chatable_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "room_id"
+    t.index ["chatable_type", "chatable_id"], name: "index_chats_on_chatable"
+    t.index ["room_id"], name: "index_chats_on_room_id"
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.interval "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "enrollments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_enrollments_on_room_id"
+    t.index ["user_id"], name: "index_enrollments_on_user_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "participants"
+    t.bigint "user_id", null: false
+    t.integer "days"
+    t.date "start_date"
+    t.time "start_time"
+    t.time "end_time"
+    t.boolean "locked"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "course_id", null: false
+    t.index ["course_id"], name: "index_rooms_on_course_id"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "title"
+    t.integer "topic_type"
+    t.interval "duration"
+    t.string "topicable_type", null: false
+    t.bigint "topicable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topicable_type", "topicable_id"], name: "index_topics_on_topicable"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -25,4 +81,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_11_092606) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "chats", "rooms"
+  add_foreign_key "chats", "users"
+  add_foreign_key "enrollments", "rooms"
+  add_foreign_key "enrollments", "users"
+  add_foreign_key "rooms", "courses"
+  add_foreign_key "rooms", "users"
 end

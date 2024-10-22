@@ -1,5 +1,6 @@
 Rails.application.routes.draw do  
-  resources :posts
+  get "chat/course"
+  get "chat/topic"
   defaults export: true do
     # All routes defined inside this block will be exported.
     root 'inertia_example#index'
@@ -7,8 +8,15 @@ Rails.application.routes.draw do
         sessions: 'users/sessions',
         registrations: 'users/registrations',
         passwords: "users/passwords"
-
     }
+    get 'dashboard', to: 'dashboard#index', as: :rooms
+    get 'dashboard/new_room', to: 'dashboard#new_room', as: :new_room
+    get 'dashboard/explore', to: 'dashboard#explore', as: :explore
+    get 'dashboard/room/:id', to: 'dashboard#show_room', as: :room
+    post 'dashboard/create_room', to: 'dashboard#create_room', as: :show_room
+    get 'dashboard/room/:id/chat', to: 'chat#room', as: :room_chat
+
+    post 'enrollments', to: 'enrollments#create', as: :enrollments_create
   end
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
