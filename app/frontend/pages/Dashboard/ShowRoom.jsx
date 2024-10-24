@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { format } from 'date-fns';
 import { Card, CardHeader, CardContent, Button, Badge } from './RoomComponents';
-import {dashboard, enrollments, chat} from '~/api'
-// app/javascript/Pages/Rooms/Show.jsx
+import {dashboard, enrollments, chat, apiCourse} from '~/api'
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import TopicItem from './TopicItem'
+
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 const RoomShow = ({ room, can_enroll, auth_user }) => {
@@ -50,43 +52,7 @@ const RoomShow = ({ room, can_enroll, auth_user }) => {
     </div>
   );
 
- const TopicItem = ({ topic }) => (
-    <div className="border-b border-gray-200 last:border-0 py-4">
-      <div className="flex justify-between items-start">
-        <div>
-          <h3 className="font-medium text-gray-900">{topic.title}</h3>
-          <span className="text-sm text-gray-500">
-            Duration: {formatDuration(topic.duration)}
-          </span>
-        </div>
-        <Badge variant={getTopicTypeBadge(topic.topic_type)}>
-          {formatTopicType(topic.topic_type)}
-        </Badge>
-      </div>
-    </div>
-  );
 
-  // Helper function to format topic type
-  const formatTopicType = (type) => {
-    const types = {
-      0: 'Theory',
-      1: 'Practical',
-      2: 'Assignment',
-      3: 'Quiz'
-    };
-    return types[type] || 'Other';
-  };
-
-  // Helper function to get badge variant based on topic type
-  const getTopicTypeBadge = (type) => {
-    const variants = {
-      0: 'default',    // Theory
-      1: 'success',    // Practical
-      2: 'warning',    // Assignment
-      3: 'info'        // Quiz
-    };
-    return variants[type] || 'default';
-  };
 
   return (
     <>

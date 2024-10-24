@@ -4,8 +4,9 @@ import { useEffect } from 'react'
 import { Notyf } from 'notyf';
 import { Link } from '@inertiajs/react'
 import {inertiaExample, dashboard, usersSessions} from '~/api'
+
 export default function DashboardLayout({ children }) {
-  const { flash, is_signed_in } = usePage().props    
+  const { flash, is_signed_in } = usePage().props  
 
   useEffect(() => {
     const notyf = new Notyf();

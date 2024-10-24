@@ -3,7 +3,7 @@ class Room < ApplicationRecord
   belongs_to :course
   has_many :chats
   has_many :enrollments
-  has_many :users, through: :enrollments
+  has_many :enrolled_users, through: :enrollments, source: :user
   validates :participants, presence: true, numericality: { greater_than: 0 }
   validates :days, presence: true, numericality: { greater_than: 0, message: "can't be empty"  }
   validates :start_date, presence: true

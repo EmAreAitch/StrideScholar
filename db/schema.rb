@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_21_114428) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_23_153754) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,6 +70,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_114428) do
     t.index ["topicable_type", "topicable_id"], name: "index_topics_on_topicable"
   end
 
+  create_table "user_progresses", force: :cascade do |t|
+    t.bigint "topic_id", null: false
+    t.bigint "room_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_user_progresses_on_room_id"
+    t.index ["topic_id", "room_id", "user_id"], name: "index_user_progresses_on_topic_id_and_room_id_and_user_id", unique: true
+    t.index ["topic_id"], name: "index_user_progresses_on_topic_id"
+    t.index ["user_id"], name: "index_user_progresses_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -88,4 +101,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_114428) do
   add_foreign_key "enrollments", "users"
   add_foreign_key "rooms", "courses"
   add_foreign_key "rooms", "users"
+  add_foreign_key "user_progresses", "rooms"
+  add_foreign_key "user_progresses", "topics"
+  add_foreign_key "user_progresses", "users"
 end

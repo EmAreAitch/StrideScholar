@@ -30,7 +30,7 @@ class DashboardController < ApplicationController
           only: [:title, :description, :duration],
           include: {
             topics: {
-              only: [:title, :duration, :topic_type]
+              only: [:id, :title, :duration, :topic_type]
             }
           }
         },

@@ -1,6 +1,4 @@
 Rails.application.routes.draw do  
-  get "chat/course"
-  get "chat/topic"
   defaults export: true do
     # All routes defined inside this block will be exported.
     root 'inertia_example#index'
@@ -17,6 +15,9 @@ Rails.application.routes.draw do
     get 'dashboard/room/:id/chat', to: 'chat#room', as: :room_chat
 
     post 'enrollments', to: 'enrollments#create', as: :enrollments_create
+    namespace :api do
+      get 'subtopics', to: "course#subtopics", as: :subtopics
+    end
   end
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
