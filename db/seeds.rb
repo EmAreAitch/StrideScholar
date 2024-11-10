@@ -28,7 +28,7 @@ end
 
 # New method to generate end time
 def generate_end_time(start_time)
-  duration = rand(1..4).hours
+  duration = rand(1..3).hours
   end_time = (start_time + duration).change(
     year: start_time.year,
     month: start_time.month,
