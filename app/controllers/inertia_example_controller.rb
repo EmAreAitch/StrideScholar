@@ -1,7 +1,6 @@
 class InertiaExampleController < ApplicationController
+  skip_before_action :authenticate_user!
   def index
-    render inertia: "InertiaExample", props: {
-      name: params.fetch(:name, "World")
-    }
+    render inertia: "LandingPage/Page"
   end
 end
