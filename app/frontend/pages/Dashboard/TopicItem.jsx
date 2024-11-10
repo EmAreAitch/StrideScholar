@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { usePage } from '@inertiajs/react';
+import { usePage, Link } from '@inertiajs/react';
 import axios from 'axios';
 import { Card, CardHeader, CardContent, Button, Badge } from './RoomComponents';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { apiCourse } from '~/api';
-import {Notyf} from 'notyf'
+import { ChevronDown, ChevronUp, MessageCircle } from 'lucide-react';
+import { apiCourse, chat } from '~/api';
+import { Notyf } from 'notyf';
 
 const TopicItem = ({ topic, depth = 0, roomId, onProgressChange, parentUpdateCallback }) => {     
   const { authenticity_token } = usePage().props;
@@ -20,10 +20,8 @@ const TopicItem = ({ topic, depth = 0, roomId, onProgressChange, parentUpdateCal
   useEffect(() => {
     if (subtopics.length > 0) {
       const allCompleted = subtopics.every(st => st.completed);
-      // Only update if the completion status is different
       if (allCompleted !== completed) {
         setCompleted(allCompleted);
-        // Notify parent about the change
         if (parentUpdateCallback) {
           parentUpdateCallback(topic.id, allCompleted);
         }
@@ -59,15 +57,13 @@ const TopicItem = ({ topic, depth = 0, roomId, onProgressChange, parentUpdateCal
         room_id: roomId,
         status: newStatus
       });
-
-      // Use the server-provided topics_completed count      
+      
       if (response.data.topics_completed !== undefined) {
         onProgressChange(response.data.topics_completed);
       }
 
       setCompleted(newStatus);
       
-      // Update subtopics if they exist
       if (subtopics.length > 0) {
         setSubtopics(prevSubtopics => 
           prevSubtopics.map(st => ({
@@ -77,7 +73,6 @@ const TopicItem = ({ topic, depth = 0, roomId, onProgressChange, parentUpdateCal
         );
       }
 
-      // Still notify parent topic if this is a subtopic
       if (parentUpdateCallback) {
         parentUpdateCallback(topic.id, newStatus);
       }
@@ -129,8 +124,6 @@ const TopicItem = ({ topic, depth = 0, roomId, onProgressChange, parentUpdateCal
 
   const depthPadding = `${depth * 1}rem`;
 
-  // Your existing helper functions (formatTopicType, formatDuration, getTopicTypeBadge)...
-
   return (
     <div className="border-b border-gray-200 last:border-0">
       <div
@@ -163,9 +156,18 @@ const TopicItem = ({ topic, depth = 0, roomId, onProgressChange, parentUpdateCal
               Duration: {formatDuration(topic.duration)}
             </span>
           </div>
-          <Badge variant={getTopicTypeBadge(topic.topic_type)}>
-            {formatTopicType(topic.topic_type)}
-          </Badge>
+          <div className="flex items-center gap-2">
+            <Link
+              href={chat.topic.path({id:roomId, topic_id: topic.id})}
+              className="p-1.5 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <MessageCircle size={20} />
+            </Link>
+            <Badge variant={getTopicTypeBadge(topic.topic_type)}>
+              {formatTopicType(topic.topic_type)}
+            </Badge>
+          </div>
         </div>
       </div>
 

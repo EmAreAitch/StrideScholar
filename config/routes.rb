@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'dashboard/room/:id', to: 'dashboard#show_room', as: :room
     post 'dashboard/create_room', to: 'dashboard#create_room', as: :show_room
     get 'dashboard/room/:id/chat', to: 'chat#room', as: :room_chat
+    get 'dashboard/room/:id/topic/:topic_id/chat', to: 'chat#topic', as: :topic_chat
 
     post 'enrollments', to: 'enrollments#create', as: :enrollments_create
     namespace :api do
