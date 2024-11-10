@@ -6,8 +6,7 @@ class DashboardController < ApplicationController
 		}
 	end
 
-  def show_room
-    p form_authenticity_token
+  def show_room    
    room = Room.includes(
     :user,
     :enrollments,
@@ -63,7 +62,7 @@ def explore
   rooms = Room.search(query: params[:query]).includes(:course)
               .where.not(id: current_user.rooms.select(:id)) # Exclude owned rooms
               .where.not(id: current_user.enrolled_rooms.select(:id)) # Exclude enrolled rooms
-  
+  puts "rooms: #{rooms}"
   render inertia: "Dashboard/Explore", props: {
     rooms: rooms.as_json(include: { course: { only: [:id, :title] } })
   }

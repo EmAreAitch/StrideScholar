@@ -28,13 +28,12 @@ end
 
 # New method to generate end time
 def generate_end_time(start_time)
-  duration = rand(1..4).hours
+  duration = rand(1..3).hours
   end_time = (start_time + duration).change(
     year: start_time.year,
     month: start_time.month,
     day: start_time.day
-  )
-  p "#{start_time} #{end_time}"
+  )  
   end_time
 end
 
@@ -48,7 +47,7 @@ puts "Clearing existing data..."
 ActiveRecord::Base.connection.disable_referential_integrity do
   # Either use this single command with CASCADE:
   ActiveRecord::Base.connection.execute(
-    "TRUNCATE chats, enrollments, topics, rooms, courses, users RESTART IDENTITY CASCADE;"
+    "TRUNCATE chats, enrollments, topics, rooms, courses, users, user_progresses RESTART IDENTITY CASCADE;"
   )
   
   # OR use this approach with correct order if you prefer separate commands:

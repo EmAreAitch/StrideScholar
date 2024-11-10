@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_10_113706) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_10_171025) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -36,8 +36,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_113706) do
     t.datetime "updated_at", null: false
     t.integer "topics_count", default: 0, null: false
     t.integer "total_topics_count", default: 0
-    t.index ["description"], name: "index_courses_on_description"
-    t.index ["title"], name: "index_courses_on_title"
+    t.index ["description"], name: "index_courses_on_description", opclass: :gin_trgm_ops, using: :gin
+    t.index ["title"], name: "index_courses_on_title", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "enrollments", force: :cascade do |t|

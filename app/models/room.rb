@@ -52,7 +52,7 @@ class Room < ApplicationRecord
     results = all    
     # Text search
     if query.present?
-      results = results.joins(:course).where("courses.title % :q OR courses.description % :q", q: "%#{query}%")
+      results = results.joins(:course).where("similarity(courses.title, ?) > 0.3 OR similarity(courses.description, ?) > 0.3 OR courses.title ILIKE ? OR courses.description ILIKE ?",query, query, "%#{query}%", "%#{query}%")
     end
     
     # Hashtag search
