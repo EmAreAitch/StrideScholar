@@ -10,8 +10,7 @@ function App() {
 
   const {is_signed_in} = usePage().props
   return (
-    <div className="App">
-       <link rel="icon" className="w-full h-screen" href={usePage}></link>
+    <div className="App">       
       <title>Stride Scholars</title>
       <Header />
       <MainContent />
