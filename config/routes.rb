@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     post 'enrollments', to: 'enrollments#create', as: :enrollments_create
     namespace :api do
       get 'subtopics', to: "course#subtopics", as: :subtopics
+      patch 'update-progress', to: "course#update_progress", as: :update_progress
     end
   end
   

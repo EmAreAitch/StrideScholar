@@ -4,6 +4,8 @@ class Room < ApplicationRecord
   has_many :chats
   has_many :enrollments
   has_many :enrolled_users, through: :enrollments, source: :user
+  has_many :user_progresses
+  has_many :hashtags, dependent: :destroy
   validates :participants, presence: true, numericality: { greater_than: 0 }
   validates :days, presence: true, numericality: { greater_than: 0, message: "can't be empty"  }
   validates :start_date, presence: true
@@ -45,6 +47,58 @@ class Room < ApplicationRecord
     mask = Array(days).sum { |day| DAYS[day.to_sym] }
     where('(days & ?) = ?', mask, mask)
   }
+
+  def self.search(query: nil, tags: nil, course_id: nil)
+    results = all    
+    # Text search
+    if query.present?
+      results = results.joins(:course).where("courses.title % :q OR courses.description % :q", q: "%#{query}%")
+    end
+    
+    # Hashtag search
+    if tags.present?
+      tags = tags.split(',').map(&:strip) if tags.is_a?(String)
+      normalized_tags = tags.map { |t| t.downcase.strip.gsub(/[^a-z0-9]/, '') }      
+      results = results
+        .joins(:hashtags)
+        .where(hashtags: { name: normalized_tags })
+        .group('rooms.id')
+        .having('COUNT(DISTINCT hashtags.name) = ?', normalized_tags.size)
+    end
+    
+    # Course filter
+    results = results.where(course_id: course_id) if course_id.present?    
+    results
+  end
+
+
+  def hashtag_list=(tags)
+    tags = tags.split(',').map(&:strip) if tags.is_a?(String)
+    
+    # Clear existing and create new tags
+    hashtags.clear
+    tags.each do |tag|
+      name = tag.downcase.strip.gsub(/[^a-z0-9]/, '')
+      hashtags.build(name: name) if name.present?
+    end
+  end
+  
+  def hashtag_list
+    hashtags.pluck(:name).join(', ')
+  end
+  
+  def self.search_by_hashtags(tags)
+    return all if tags.blank?
+    
+    tags = tags.split(',').map(&:strip) if tags.is_a?(String)
+    normalized_tags = tags.map { |t| t.downcase.strip.gsub(/[^a-z0-9]/, '') }
+    
+    joins(:hashtags)
+      .where(hashtags: { name: normalized_tags })
+      .group('rooms.id')
+      .having('COUNT(DISTINCT hashtags.name) = ?', normalized_tags.size)
+  end
+
 
   private
   

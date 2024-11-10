@@ -7,11 +7,22 @@ class DashboardController < ApplicationController
 	end
 
   def show_room
+    p form_authenticity_token
    room = Room.includes(
     :user,
     :enrollments,
     course: :topics
-  ).find(params[:id])
+  ).find(params[:id])   
+
+   user_progress = UserProgress.where(room: room, user: current_user)
+   topics_completed = user_progress.sum {|i| i.progress.to_s(2).count('1')}
+   course_progress = user_progress.find_by(progressable_type: 'Course')
+   if course_progress
+    room.course.topics.each do |topic|
+      index = topic.position - 1
+      topic.completed = (course_progress.progress & (1 << index) != 0)
+    end
+   end  
 
   # Preload current user's enrollment status
   current_user_enrolled = room.enrollments.loaded? ? 
@@ -21,16 +32,17 @@ class DashboardController < ApplicationController
   # Calculate enrollments count using the preloaded association
   enrollments_count = room.enrollments.loaded? ? 
     room.enrollments.size : 
-    room.enrollments.count
+    room.enrollments.count  
 
   render inertia: 'Dashboard/ShowRoom', props: {
     room: room.as_json(
       include: {
         course: {
-          only: [:title, :description, :duration],
+          only: [:title, :description, :duration, :topics_count, :total_topics_count],
           include: {
             topics: {
-              only: [:id, :title, :duration, :topic_type]
+              only: [:id, :title, :duration, :topic_type, :topics_count, :completed],
+              methods: [:completed]
             }
           }
         },
@@ -42,12 +54,13 @@ class DashboardController < ApplicationController
     can_enroll: !room.locked? && 
                 enrollments_count < room.participants && 
                 !current_user_enrolled && room.user != current_user,
-    auth_user: current_user.as_json(only: [:id, :email])
+    auth_user: current_user.as_json(only: [:id, :email]),
+    topics_completed: topics_completed
   }  
 end
 
 def explore  
-  rooms = Room.includes(:course)
+  rooms = Room.search(query: params[:query]).includes(:course)
               .where.not(id: current_user.rooms.select(:id)) # Exclude owned rooms
               .where.not(id: current_user.enrolled_rooms.select(:id)) # Exclude enrolled rooms
   

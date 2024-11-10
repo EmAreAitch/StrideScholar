@@ -2,12 +2,13 @@ import { usePage } from '@inertiajs/react'
 import { useEffect } from 'react'
 import { Notyf } from 'notyf';
 import { usersSessions } from '~/api';
+import axios from 'axios'
 
 import 'notyf/notyf.min.css';
 
 export default function Layout({ children }) {
   const { flash, is_signed_in } = usePage().props    
-
+  window.axios = axios
   useEffect(() => {
     const notyf = new Notyf();
     for (const type in flash) {

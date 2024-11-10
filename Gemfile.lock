@@ -177,6 +177,9 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.8)
+    positioning (0.3.0)
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
     psych (5.1.2)
       stringio
     public_suffix (6.0.1)
@@ -327,6 +330,7 @@ DEPENDENCIES
   js_from_routes
   ostruct (~> 0.6.0)
   pg (~> 1.1)
+  positioning (~> 0.3.0)
   puma (>= 5.0)
   rails (~> 7.2.1)
   redis (~> 5.3)

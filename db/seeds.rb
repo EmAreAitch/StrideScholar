@@ -29,11 +29,13 @@ end
 # New method to generate end time
 def generate_end_time(start_time)
   duration = rand(1..4).hours
-  (start_time + duration).change(
+  end_time = (start_time + duration).change(
     year: start_time.year,
     month: start_time.month,
     day: start_time.day
   )
+  p "#{start_time} #{end_time}"
+  end_time
 end
 
 # Helper method to generate random days combination
@@ -87,8 +89,19 @@ courses = NUM_COURSES.times.map do |i|
       title: Faker::Educator.subject,
       topic_type: Topic.topic_types.keys.sample,
       duration: random_interval,
-      topicable: course
+      topicable: course,
+      course: course
     )
+
+    rand(1..3).times do 
+      Topic.create!(
+      title: Faker::Educator.subject,
+      topic_type: Topic.topic_types.keys.sample,
+      duration: random_interval,
+      topicable: topic,
+      course: course
+    )
+    end 
     
   end
 
@@ -114,8 +127,9 @@ courses.each do |course|
     )
 
     # Create enrollments for the room
-    num_enrollments = rand(3..10)
-    users.sample(num_enrollments).each do |user|
+    num_enrollments = rand(3..(room.participants * 3 / 5))
+    enrolled_users = users.sample(num_enrollments)
+    enrolled_users.each do |user|
       Enrollment.create!(
         user: user,
         room: room
@@ -126,7 +140,7 @@ courses.each do |course|
     CHATS_PER_ROOM.times do
       Chat.create!(
         message: Faker::Lorem.paragraph,
-        user: users.sample,
+        user: enrolled_users.sample,
         room: room,
         chatable: [room, course, course.topics.sample].sample,
         created_at: Time.now - rand(1..30).days
@@ -134,6 +148,8 @@ courses.each do |course|
     end
   end
 end
+
+Topic.heal_position_column!(:created_at)
 
 # Print summary
 puts "\nSeeding completed!"

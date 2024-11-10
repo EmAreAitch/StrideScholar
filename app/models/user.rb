@@ -6,4 +6,5 @@ class User < ApplicationRecord
   has_many :enrollments
   has_many :enrolled_rooms, through: :enrollments, source: :room
   has_many :rooms
+  has_many :user_progresses
 end

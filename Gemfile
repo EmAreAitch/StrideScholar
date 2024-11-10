@@ -66,3 +66,5 @@ gem "ostruct", "~> 0.6.0"
 
 gem "devise", "~> 4.9"
 gem "faker", "~> 3.5"
+
+gem "positioning", "~> 0.3.0"

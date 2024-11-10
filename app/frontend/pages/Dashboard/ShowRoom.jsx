@@ -8,14 +8,24 @@ import TopicItem from './TopicItem'
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-const RoomShow = ({ room, can_enroll, auth_user }) => {
+const RoomShow = ({ room, can_enroll, auth_user, topics_completed }) => {
+  const [userProgress, setUserProgress] = useState(topics_completed / room.course.total_topics_count * 100);      
+  const [completedTopicsCount, setCompletedTopicsCount] = useState(topics_completed);
+
+  const handleProgressChange = (newCompletedCount) => {
+    setCompletedTopicsCount(newCompletedCount);
+    setUserProgress((newCompletedCount / room.course.total_topics_count) * 100);
+  };
+
   const { post, transform, processing } = useForm({
     room_id: room.id
   });
 
+  
+
   const handleEnroll = () => {    
     post(enrollments.create.path());
-  };
+  };  
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -117,12 +127,18 @@ const RoomShow = ({ room, can_enroll, auth_user }) => {
 
             {/* New Topics Section */}
             <div className="mt-8">
-              <h2 className="text-xl font-semibold mb-4">Course Topics</h2>
+              <h2 className="text-xl font-semibold mb-4">Course Topics -  {room.course.topics_count}</h2>
+              <div className="flex gap-4 items-center mb-4"> 
+              <p className="">Progress: </p>
+              <div className='h-3 bg-white w-64 border border-2 border-black rounded-full'>
+               <div className="h-full bg-green-400 rounded-full" style={{width: `${userProgress}%`, transition: "width 0.3s"}}></div>
+              </div>
+              </div>
               <Card className="bg-gray-50">
                 <CardContent className="divide-y divide-gray-200">
                   {room.course.topics && room.course.topics.length > 0 ? (
                     room.course.topics.map((topic, index) => (
-                      <TopicItem key={index} topic={topic} />
+                      <TopicItem key={index} topic={topic} roomId={room.id} onProgressChange={handleProgressChange}/>
                     ))
                   ) : (
                     <p className="text-gray-500 py-4">No topics available for this course</p>

@@ -1,6 +1,11 @@
 class Topic < ApplicationRecord
-  belongs_to :topicable, polymorphic: true  
+  attr_accessor :completed  
+  # default_scope { order(:position) }
+  belongs_to :topicable, polymorphic: true, counter_cache: true
+  positioned on: [:topicable_type,:topicable_id]
+  belongs_to :course, counter_cache: :total_topics_count
   has_many :topics, as: :topicable
+  has_many :user_progresses, as: :progressable
   has_one :chat, as: :chatable
   enum :topic_type, [:article, :video, :quiz, :project]
   validates :title, presence: true,
