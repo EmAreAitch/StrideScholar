@@ -19,7 +19,7 @@ createInertiaApp({
     const pages = import.meta.glob('../pages/**/*.jsx', { eager: true })
     let page = pages[`../pages/${name}.jsx`]
     page.default.layout =
-      page.default.layout || ((page) => createElement(name.startsWith("User") ? Layout : DashboardLayout, {children: page}))
+      page.default.layout || ((page) => createElement(name.startsWith("User") || name.startsWith("LandingPage") ? Layout : DashboardLayout, {children: page}))
     return page
 
     // To use a default layout, import the Layout component
