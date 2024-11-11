@@ -58,7 +58,7 @@ export default function SessionNew() {
                   name="email"
                   id="email"
                   value={data.email}
-                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                     errors.email ? "border-red-500" : "border-gray-300"
                   }`}
                   onChange={(e) => setData("email", e.target.value)}
@@ -85,7 +85,7 @@ export default function SessionNew() {
                   name="password"
                   id="password"
                   value={data.password}
-                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                     errors.password ? "border-red-500" : "border-gray-300"
                   }`}
                   onChange={(e) => setData("password", e.target.value)}
