@@ -1,6 +1,6 @@
 Rails.application.routes.draw do  
   defaults export: true do
-    # All routes defined inside this block will be exported.
+    # Existing routes
     root 'inertia_example#index'
     devise_for :users, controllers: {
         sessions: 'users/sessions',
@@ -14,24 +14,21 @@ Rails.application.routes.draw do
     post 'dashboard/create_room', to: 'dashboard#create_room', as: :show_room
     get 'dashboard/room/:id/chat', to: 'chat#room', as: :room_chat
     get 'dashboard/room/:id/topic/:topic_id/chat', to: 'chat#topic', as: :topic_chat
-
     post 'enrollments', to: 'enrollments#create', as: :enrollments_create
+
+    # New resources routes
+    get 'dashboard/room/:room_id/topic/:topic_id/resources', to: 'resources#index', as: :topic_resources
+    post 'dashboard/room/:room_id/topic/:topic_id/resources', to: 'resources#create', as: :create_topic_resource
+    delete 'dashboard/room/:room_id/topic/:topic_id/resources/:id', to: 'resources#destroy', as: :delete_topic_resource
+
     namespace :api do
       get 'subtopics', to: "course#subtopics", as: :subtopics
       patch 'update-progress', to: "course#update_progress", as: :update_progress
     end
   end
   
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Health check and PWA routes
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/*
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-
-  # Defines the root path route ("/")
-  # root "posts#index"
 end
