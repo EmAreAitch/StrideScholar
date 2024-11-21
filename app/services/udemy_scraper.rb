@@ -63,13 +63,15 @@ class UdemyScraper
         })
       end
       @course
-    rescue Ferrum::TimeoutError, Ferrum::ProcessTimeoutError, Ferrum::Error      
+    rescue Ferrum::TimeoutError, Ferrum::ProcessTimeoutError, Ferrum::Error => e
       retries -= 1
       retry unless retries.zero?      
       @course.errors.add(:course_url, "Server Timeout... Please Try Again")
+      Rails.logger.debug e.message
       @course
     rescue RuntimeError, StandardError => e
       @course.errors.add(:course_url, e.message)
+      Rails.logger.debug e.message
       @course
     ensure
       browser&.quit
