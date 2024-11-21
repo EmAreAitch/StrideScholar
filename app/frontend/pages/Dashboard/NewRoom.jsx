@@ -67,7 +67,7 @@ export default function NewRoom({ courses }) {
         <LinkUrl type="url" 
           label="Course Link"
           value={data.course_url} 
-          onChange={(e)=>handleUdemyUrlChange(e)}
+          onChange={handleUdemyUrlChange}
           error={errors.course_url}>
         </LinkUrl>
         

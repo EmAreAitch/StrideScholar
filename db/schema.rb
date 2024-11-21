@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_11_021131) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_21_123402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -64,7 +64,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_11_021131) do
     t.datetime "updated_at", null: false
     t.integer "topics_count", default: 0, null: false
     t.integer "total_topics_count", default: 0
+    t.integer "platform"
+    t.integer "platform_id"
     t.index ["description"], name: "index_courses_on_description", opclass: :gin_trgm_ops, using: :gin
+    t.index ["platform", "platform_id"], name: "index_courses_on_platform_and_platform_id", unique: true
     t.index ["title"], name: "index_courses_on_title", opclass: :gin_trgm_ops, using: :gin
   end
 

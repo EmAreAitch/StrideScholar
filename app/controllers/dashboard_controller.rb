@@ -76,18 +76,21 @@ end
   end
 
   def create_room
-    @room = Room.new(room_params.merge({user: current_user}))    
+    params_hash = room_params.to_h
+    link = params_hash.delete(:course_url)
+    scr = UdemyScraper.new
+    course = scr.extract_course_details(link)    
+    @room = Room.new(params_hash.merge({user: current_user, course: course}))    
     if @room.save
       redirect_to rooms_path, notice: 'Room was successfully created.'      
-    else
-      p @room.errors
-      redirect_to new_room_path, inertia: {errors: @room.errors.to_hash(true)}
+    else      
+      redirect_to new_room_path, inertia: {errors: @room.errors.to_hash(true).merge(course.errors.to_hash(true))}
     end
   end
 
   private
 
   def room_params
-    params.require(:room).permit(:course_id, :participants, :days, :start_date, :start_time, :end_time, :locked)
+    params.require(:room).permit(:course_url, :participants, :days, :start_date, :start_time, :end_time, :locked)
   end
 end
