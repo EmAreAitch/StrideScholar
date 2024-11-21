@@ -59,7 +59,7 @@ const SearchForm = ({ initialQuery = '' }) => {
         </div>
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Search
         </button>
@@ -84,22 +84,22 @@ const RoomCard = ({ room }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-6 mb-4">
       <h3 className="text-xl font-semibold mb-2">{room.course.title}</h3>
-      <p className="text-gray-600 mb-2">Participants: {room.participants}</p>
-      <p className="text-gray-600 mb-2">
+      <p className="text-gray-600 font-semibold mb-2">Participants: {room.participants}</p>
+      <p className="text-gray-600 font-semibold mb-2">
         Days: {selectedDays.join(', ')}
       </p>
-      <p className="text-gray-600 mb-2">
+      <p className="text-gray-600 mb-2 font-semibold">
         Start Date: {formatDate(room.start_date)}
       </p>
-      <p className="text-gray-600 mb-2">
+      <p className="text-gray-600 mb-2 font-semibold">
         Time: {formatTime(room.start_time)} - {formatTime(room.end_time)}
       </p>
-      <p className="text-gray-600 mb-2">
+      <p className="text-gray-600 mb-2 font-semibold">
         Status: {room.locked ? 'Locked' : 'Open'}
       </p>      
       <Link
         href={dashboard.showRoom.path({id: room.id})}
-        className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+        className="mt-4 inline-block bg-blue-500 text-white font-medium py-3 px-4 rounded hover:bg-blue-600"
       >
         View Room
       </Link>
@@ -125,7 +125,7 @@ const RoomsList = ({ title, rooms, isCreator }) => (
 const RoomsExplore = ({ rooms, query = '' }) => {    
   return (    
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Explore Rooms</h1>
+      <h1 className="text-5xl font-bold mb-4">Explore Rooms</h1>
       <SearchForm initialQuery={query} />
       <RoomsList title="Rooms you can join" rooms={rooms} />
     </div>

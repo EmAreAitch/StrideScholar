@@ -1,11 +1,11 @@
 import React from 'react'
 export const LinkUrl=({label,course_url,onChange,error})=>(
 <div className="mb-4">
-    <label htmlFor={course_url} className="block mb-2 font-bold">{label}</label>
+    <label htmlFor={course_url} className="block mb-2 text-lg font-semibold">{label}</label>
     <input type="url"
       value={course_url}
       onChange={onChange}
-      className="w-full p-2 border rounded"
+      className="w-full p-2 border rounded "
     ></input>
      {error && <div className="text-red-500 mt-1">{error}</div>}
   </div>
@@ -13,7 +13,7 @@ export const LinkUrl=({label,course_url,onChange,error})=>(
 
 export const Select = ({ label, name, children, value, onChange, error }) => (
   <div className="mb-4">
-    <label htmlFor={name} className="block mb-2 font-bold">{label}</label>
+    <label htmlFor={name} className="block mb-2 text-lg font-semibold">{label}</label>
     <select
       id={name}
       name={name}
@@ -29,7 +29,7 @@ export const Select = ({ label, name, children, value, onChange, error }) => (
 
 export const TextInput = ({ label, name, type = 'text', value, onChange, error }) => (
   <div className="mb-4">
-    <label htmlFor={name} className="block mb-2 font-bold">{label}</label>
+    <label htmlFor={name} className="block mb-2 text-lg font-semibold">{label}</label>
     <input
       type={type}
       id={name}
@@ -44,7 +44,7 @@ export const TextInput = ({ label, name, type = 'text', value, onChange, error }
 
 export const DatePicker = ({ label, name, value, onChange, error }) => (
   <div className="mb-4">
-    <label htmlFor={name} className="block mb-2 font-bold">{label}</label>
+    <label htmlFor={name} className="block mb-2 text-lg font-semibold">{label}</label>
     <input
       type="date"
       id={name}
@@ -59,7 +59,7 @@ export const DatePicker = ({ label, name, value, onChange, error }) => (
 
 export const TimePicker = ({ label, name, value, onChange, error }) => (
   <div className="mb-4">
-    <label htmlFor={name} className="block mb-2 font-bold">{label}</label>
+    <label htmlFor={name} className="block mb-2 font-semibold">{label}</label>
     <input
       type="time"
       id={name}

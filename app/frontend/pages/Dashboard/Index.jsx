@@ -20,22 +20,22 @@ const RoomCard = ({ room, isCreator }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-6 mb-4">
       <h3 className="text-xl font-semibold mb-2">{room.course.title}</h3>
-      <p className="text-gray-600 mb-2">Participants: {room.participants}</p>
-      <p className="text-gray-600 mb-2">
+      <p className="text-gray-600 font-semibold mb-2">Participants: {room.participants}</p>
+      <p className="text-gray-600 font-semibold mb-2">
         Days: {selectedDays.join(', ')}
       </p>
-      <p className="text-gray-600 mb-2">
+      <p className="text-gray-600 mb-2 font-semibold">
         Start Date: {formatDate(room.start_date)}
       </p>
-      <p className="text-gray-600 mb-2">
+      <p className="text-gray-600 mb-2 font-semibold">
         Time: {formatTime(room.start_time)} - {formatTime(room.end_time)}
       </p>
-      <p className="text-gray-600 mb-2">
+      <p className="text-gray-600 mb-2 font-semibold">
         Status: {room.locked ? 'Locked' : 'Open'}
       </p>      
       <Link
         href={dashboard.showRoom.path({id: room.id})}
-        className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+        className="mt-4 inline-block bg-blue-500 text-white font-medium py-3 px-4 rounded hover:bg-blue-600"
       >
         View Room
       </Link>
@@ -47,7 +47,7 @@ const RoomsList = ({ title, rooms, isCreator }) => (
   <div className="mb-8">
     <h2 className="text-2xl font-bold mb-4">{title}</h2>
     {rooms.length === 0 ? (
-      <p className="text-gray-600">No rooms to display.</p>
+      <p className="text-gray-600 text-lg font-medium">No rooms to display.</p>
     ) : (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {rooms.map((room) => (
@@ -63,20 +63,20 @@ const RoomsIndex = ({createdRooms, enrolledRooms}) => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Your Rooms</h1>
+      <h1 className="text-5xl font-bold mb-6">Your Rooms</h1>
       
       <div className="mb-6">
         <button
-          className={`mr-4 py-2 px-4 rounded ${
-            activeTab === 'created' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+          className={`mr-4 py-3 px-6 rounded font-medium  ${
+            activeTab === 'created' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-gray-200'
           }`}
           onClick={() => setActiveTab('created')}
         >
           Created Rooms
         </button>
         <button
-          className={`py-2 px-4 rounded ${
-            activeTab === 'enrolled' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+          className={`py-3 px-6 rounded font-medium  ${
+            activeTab === 'enrolled' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-gray-200'
           }`}
           onClick={() => setActiveTab('enrolled')}
         >
@@ -90,7 +90,7 @@ const RoomsIndex = ({createdRooms, enrolledRooms}) => {
     {createdRooms.length === 0 && (
       <Link
         href={dashboard.newRoom.path()}
-        className="mt-8 inline-block bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+        className="mt-8 inline-block bg-white text-blue-500 py-4 px-5 rounded font-medium hover:bg-blue-500 hover:text-white"
       >
         Create New Room
       </Link>
@@ -104,7 +104,7 @@ const RoomsIndex = ({createdRooms, enrolledRooms}) => {
     {enrolledRooms.length === 0 && (
       <Link
         href={dashboard.explore.path()}
-        className="mt-8 inline-block bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+        className="mt-8 inline-block bg-white text-blue-500 py-3 px-5 rounded font-medium hover:bg-blue-500 hover:text-white"
       >
         Explore rooms
       </Link>
