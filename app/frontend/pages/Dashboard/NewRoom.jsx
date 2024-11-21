@@ -30,6 +30,8 @@ export default function NewRoom({ courses }) {
     locked: false,
   });
 
+  console.log(errors)
+
   function handleSubmit(e) {
     e.preventDefault();
     transform((data) => ({ room: data }));

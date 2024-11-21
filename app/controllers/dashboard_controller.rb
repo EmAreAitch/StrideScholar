@@ -82,7 +82,7 @@ end
     course = scr.extract_course_details(link)    
     @room = Room.new(params_hash.merge({user: current_user, course: course}))    
     if @room.save
-      redirect_to rooms_path, notice: 'Room was successfully created.'      
+      redirect_to room_path(@room), notice: 'Room was successfully created.'      
     else      
       redirect_to new_room_path, inertia: {errors: @room.errors.to_hash(true).merge(course.errors.to_hash(true))}
     end
