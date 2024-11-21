@@ -1,4 +1,15 @@
 import React from 'react'
+export const LinkUrl=({label,course_url,onChange,error})=>(
+<div className="mb-4">
+    <label htmlFor={course_url} className="block mb-2 font-bold">{label}</label>
+    <input type="url"
+      value={course_url}
+      onChange={onChange}
+      className="w-full p-2 border rounded"
+    ></input>
+     {error && <div className="text-red-500 mt-1">{error}</div>}
+  </div>
+)
 
 export const Select = ({ label, name, children, value, onChange, error }) => (
   <div className="mb-4">
