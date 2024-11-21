@@ -14,7 +14,7 @@ const MainContent = () => {
         <p className="text-lg mb-6">
         Stride Scholar: A Self-Paced Learning Accelerator
         </p>
-        <Link className="bg-black text-white py-3 px-6 shadow-xl shadow-indigo-800/50" href={usersRegistrations.new.path()} as="button" type="button">Start Learning Now</Link>
+        <Link className="bg-black hover:bg-gray-800 text-white py-3 px-6 shadow-xl shadow-indigo-800/50" href={usersRegistrations.new.path()} as="button" type="button">Start Learning Now</Link>
       </div>
 
       {/* Placeholder Window */}

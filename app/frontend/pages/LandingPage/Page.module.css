@@ -15,3 +15,60 @@
       background-position: 100% 50%;
     }
   }
+
+
+  .marquee {
+    /* background-color: red; */
+    overflow-x: hidden;
+    white-space: nowrap;
+    margin-bottom: -2vw;
+  }
+  .marquee h1 {
+    display: inline-block;
+    font-size: 7vw;
+    font-family: plain-regular;
+    font-weight: 400;
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px black;
+    color: transparent;
+    margin-right: 16px;
+    animation: anime2;
+    animation-duration: 30s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  .marquee h1 > span,
+  .marquee-rev h1 > span {
+    font-family: silkserif-regular;
+  }
+  .marquee-rev {
+    /* background-color: red; */
+    overflow-x: hidden;
+    white-space: nowrap;
+    margin-bottom: -2vw;
+  }
+  .marquee-rev h1 {
+    display: inline-block;
+    font-size: 7vw;
+    font-family: plain-regular;
+    font-weight: 400;
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px black;
+    color: transparent;
+    margin-right: 16px;
+    transform: translateX(calc(-100% - 20px));
+    animation: anime2;
+    animation-duration: 30s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: reverse;
+  }
+  @keyframes anime2 {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(calc(-100% - 20px));
+    }
+  }
+  
