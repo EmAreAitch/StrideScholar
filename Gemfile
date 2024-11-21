@@ -72,3 +72,5 @@ gem "positioning", "~> 0.3.0"
 gem "cloudinary", "~> 2.2"
 
 gem "activestorage-validator", "~> 0.4.0"
+
+gem "ferrum", "~> 0.15"

@@ -3,8 +3,8 @@ class ResourcesController < ApplicationController
   # include DirectUploadsController
   
   before_action :authenticate_user!
-  before_action :set_topic
-  before_action :set_room
+  before_action :verify_enrollment
+  before_action :set_topic  
   before_action :set_resource, only: [:destroy]
 
   def index
@@ -63,5 +63,12 @@ class ResourcesController < ApplicationController
 
   def resource_params
     params.require(:resource).permit(:title, :resource_type, :url, :file)
+  end
+
+  def verify_enrollment
+    set_room
+    unless @room.user == current_user || Enrollment.exists?(user: current_user, room: @room)
+      redirect_to room_path(params[:room_id]), alert: "You are not enrolled in this course"
+    end
   end
 end

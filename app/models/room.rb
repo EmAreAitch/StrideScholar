@@ -13,7 +13,8 @@ class Room < ApplicationRecord
   validates :end_time, presence: true
   validate :end_time_after_start_time
   validate :start_date_cannot_be_in_past  
-
+  accepts_nested_attributes_for :course
+  
   DAYS = {
     monday: 1,
     tuesday: 2,
