@@ -28,24 +28,24 @@ export default function DashboardLayout({ children }) {
   })
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-blue-100">
       <aside className="w-64 bg-white shadow-md flex flex-col justify-between">
         <nav className="mt-5">
           <Link
             href={dashboard.index.path()}
-            className="block py-2 px-4 text-gray-700 hover:bg-gray-200"
+            className="block py-2 px-4 text-gray-700 hover:bg-blue-200"
           >
             Dashboard Home
           </Link>
           <Link
             href={dashboard.newRoom.path()}
-            className="block py-2 px-4 text-gray-700 hover:bg-gray-200"
+            className="block py-2 px-4 text-gray-700 hover:bg-blue-200"
           >
             Create New Room
           </Link>        
           <Link
             href={dashboard.explore.path()}
-            className="block py-2 px-4 text-gray-700 hover:bg-gray-200"
+            className="block py-2 px-4 text-gray-700 hover:bg-blue-200"
           >
             Explore rooms
           </Link>     
