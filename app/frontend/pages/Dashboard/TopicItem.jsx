@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { usePage, Link } from '@inertiajs/react';
 import axios from 'axios';
 import { Card, CardHeader, CardContent, Button, Badge } from './RoomComponents';
-import { ChevronDown, ChevronUp, MessageCircle } from 'lucide-react';
-import { apiCourse, chat } from '~/api';
+import { ChevronDown, ChevronUp, MessageCircle, GalleryVerticalEnd } from 'lucide-react';
+import { apiCourse, chat, resources } from '~/api';
 import { Notyf } from 'notyf';
 
 const TopicItem = ({ topic, depth = 0, roomId, onProgressChange, parentUpdateCallback }) => {     
@@ -157,6 +157,13 @@ const TopicItem = ({ topic, depth = 0, roomId, onProgressChange, parentUpdateCal
             </span>
           </div>
           <div className="flex items-center gap-2">
+            <Link
+              href={resources.index.path({room_id:roomId, topic_id: topic.id})}
+              className="p-1.5 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <GalleryVerticalEnd size={20} />
+            </Link>
             <Link
               href={chat.topic.path({id:roomId, topic_id: topic.id})}
               className="p-1.5 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors"

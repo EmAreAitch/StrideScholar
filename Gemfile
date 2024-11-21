@@ -68,3 +68,7 @@ gem "devise", "~> 4.9"
 gem "faker", "~> 3.5"
 
 gem "positioning", "~> 0.3.0"
+
+gem "cloudinary", "~> 2.2"
+
+gem "activestorage-validator", "~> 0.4.0"

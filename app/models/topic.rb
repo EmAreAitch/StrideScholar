@@ -6,6 +6,7 @@ class Topic < ApplicationRecord
   belongs_to :course, counter_cache: :total_topics_count
   has_many :topics, as: :topicable
   has_many :user_progresses, as: :progressable
+  has_many :resources, dependent: :destroy
   has_one :chat, as: :chatable
   enum :topic_type, [:article, :video, :quiz, :project]
   validates :title, presence: true,

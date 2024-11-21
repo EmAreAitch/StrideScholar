@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  resource_type: 1
+  url: MyString
+  topic: one
+  user: one
+  room: one
+
+two:
+  title: MyString
+  resource_type: 1
+  url: MyString
+  topic: two
+  user: two
+  room: two
