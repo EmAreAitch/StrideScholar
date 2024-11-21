@@ -31,6 +31,7 @@ class UdemyScraper
 
   def extract_course_details(course_url)
     retries = 3
+    @course = Course.new
     begin    
     browser = Ferrum::Browser.new(**@browser_options)        
       browser.headers.add({
