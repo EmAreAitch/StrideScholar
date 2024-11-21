@@ -24,21 +24,21 @@ class UdemyScraper
       },
       headless: "new",
       proxy: nil,    
-      process_timeout: 30,
+      process_timeout: 60,
       timeout: 10
     }
   end
 
   def extract_course_details(course_url)
     retries = 3
-    browser = Ferrum::Browser.new(**@browser_options)    
     begin    
+    browser = Ferrum::Browser.new(**@browser_options)        
       browser.headers.add({
         "User-Agent" => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
       })
     
       browser.go_to(course_url)
-      browser.network.wait_for_idle(timeout: 5)
+      browser.network.wait_for_idle(timeout: 10)
 
       # Extract course title and description
       course_id = browser.at_css("body").attribute("data-clp-course-id")
@@ -62,12 +62,12 @@ class UdemyScraper
         })
       end
       @course
-    rescue Ferrum::TimeoutError, Ferrum::ProcessTimeoutError      
+    rescue Ferrum::TimeoutError, Ferrum::ProcessTimeoutError, Ferrum::Error      
       retries -= 1
       retry unless retries.zero?      
       @course.errors.add(:course_url, "Server Timeout... Please Try Again")
       @course
-    rescue RuntimeError => e
+    rescue RuntimeError, StandardError => e
       @course.errors.add(:course_url, e.message)
       @course
     ensure
