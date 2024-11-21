@@ -16,10 +16,10 @@ class Resource < ApplicationRecord
   validates :resource_type, presence: true
   validates :url, presence: true, if: :link?
   validates :file, presence: true, if: :requires_file?
-  validates :file, blob: {content_type: {
-    in: %w[image/jpeg image/png image/gif video/mp4 application/pdf],
-    message: 'must be a valid file format'
-  }}, if: :file_attached?
+  # validates :file, blob: {content_type: {
+  #   in: %w[image/jpeg image/png image/gif video/mp4 application/pdf],
+  #   message: 'must be a valid file format'
+  # }}, if: :file_attached?
 
   private
 
