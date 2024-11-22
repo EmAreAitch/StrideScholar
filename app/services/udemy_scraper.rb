@@ -67,11 +67,11 @@ class UdemyScraper
       retries -= 1
       retry unless retries.zero?      
       @course.errors.add(:course_url, "Server Timeout... Please Try Again")
-      Rails.logger.debug e.message
+      Rails.logger.debug e
       @course
     rescue RuntimeError, StandardError => e
       @course.errors.add(:course_url, e.message)
-      Rails.logger.debug e.message
+      Rails.logger.debug e
       @course
     ensure
       browser&.quit
