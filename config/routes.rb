@@ -23,7 +23,9 @@ Rails.application.routes.draw do
 
     namespace :api do
       get 'subtopics', to: "course#subtopics", as: :subtopics
-      patch 'update-progress', to: "course#update_progress", as: :update_progress
+      patch 'update-progress', to: "course#update_progress", as: :update_progress,
+      post 'add-friend', to: "friendships#create", as: :add_friend,
+      patch 'accept-friend', to: "friendships#accept", as: :accept_friend
     end
   end
   
