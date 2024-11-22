@@ -3,15 +3,15 @@ import { usePage } from '@inertiajs/react'
 import { useEffect } from 'react'
 import { Notyf } from 'notyf';
 import { Link } from '@inertiajs/react'
-import {inertiaExample, dashboard, usersSessions} from '~/api'
-// import logoPng from "~/assets/images/logo.png"
+import { users, dashboard, usersSessions } from '~/api'
+import logoPng from "~/assets/LandingPageImage/logo.png"
 
 export default function DashboardLayout({ children }) {
-  const { flash, is_signed_in } = usePage().props  
+  const { flash, is_signed_in } = usePage().props
   useEffect(() => {
     const notyf = new Notyf();
     for (const type in flash) {
-      switch(type) {
+      switch (type) {
         case "alert":
           notyf.error(flash.alert)
           break;
@@ -20,16 +20,20 @@ export default function DashboardLayout({ children }) {
           break;
         default:
           alert(flash[type])
-      }      
+      }
       delete flash[type]
     }
 
   })
   return (
     <div className="flex h-screen bg-gray-100">
-      <aside className="w-72 bg-white shadow-md flex flex-col justify-between">
-        {/* <div className='w-full bg-blue-500'>
-        <img className="object-fit bottom-3 rounded-full cursor-pointer" src={logoPng} alt="Logo" />
+      <aside className="w-72  bg-white shadow-md flex flex-col justify-between">
+        {/* <div className="w-full bg-blue-500 h-[100px] flex items-center justify-center overflow-visi">
+          <img
+            className="h-20 w-16 object-cover rounded-full cursor-pointer"
+            src={logoPng}
+            alt="Logo"
+          />
         </div> */}
         <nav className="mt-5">
           <Link
@@ -43,17 +47,23 @@ export default function DashboardLayout({ children }) {
             className="block py-4 px-4 text-lg font-semibold text-gray-700 text-center hover:bg-blue-200"
           >
             Create New Room
-          </Link>        
+          </Link>
           <Link
             href={dashboard.explore.path()}
             className="block py-4 px-4 text-lg font-semibold text-gray-700 text-center hover:bg-blue-200"
           >
             Explore rooms
-          </Link>     
+          </Link>
+          <Link
+            href={users.index.path()}
+            className="block py-4 px-4 text-lg font-semibold text-gray-700 text-center hover:bg-blue-200"
+          >
+            Socials
+          </Link>
           {/* Add more dashboard links as needed */}
         </nav>
         <div className="mb-5">
-            <Link href={usersSessions.destroy.path()} className="py-4 text-xl font-bold text-blue-600 hover:underline block mx-auto" method="delete" as="button">Sign out</Link>
+          <Link href={usersSessions.destroy.path()} className="py-4 text-xl font-bold text-blue-600 hover:underline block mx-auto" method="delete" as="button">Sign out</Link>
         </div>
       </aside>
       <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">

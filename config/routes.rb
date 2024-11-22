@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     post 'dashboard/create_room', to: 'dashboard#create_room', as: :show_room
     get 'dashboard/room/:id/chat', to: 'chat#room', as: :room_chat
     get 'dashboard/room/:id/topic/:topic_id/chat', to: 'chat#topic', as: :topic_chat
+    get 'dashboard/user/:id', to: 'users#show', as: :user
+    get 'dashboard/users', to: 'users#index', as: :users
     post 'enrollments', to: 'enrollments#create', as: :enrollments_create
 
     # New resources routes
@@ -23,8 +25,8 @@ Rails.application.routes.draw do
 
     namespace :api do
       get 'subtopics', to: "course#subtopics", as: :subtopics
-      patch 'update-progress', to: "course#update_progress", as: :update_progress,
-      post 'add-friend', to: "friendships#create", as: :add_friend,
+      patch 'update-progress', to: "course#update_progress", as: :update_progress
+      post 'add-friend', to: "friendships#create", as: :add_friend
       patch 'accept-friend', to: "friendships#accept", as: :accept_friend
     end
   end

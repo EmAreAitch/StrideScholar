@@ -26,8 +26,8 @@ class UdemyScraper
       proxy: nil,    
       process_timeout: 60,
       timeout: 10,
-      xvfb: true,
-      logger: STDOUT
+      # xvfb: true,
+      # logger: STDOUT
     }
   end
 

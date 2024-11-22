@@ -7,10 +7,10 @@ class Course < ApplicationRecord
 	validates :title, presence: true, length: { minimum: 3, maximum: 255 }
 	validates :description, presence: true
   validates :duration, presence: true 
-  validates :platform, uniqueness: {
-    scope: :platform_id,
-    message: "Platform and Platform ID already exists"
-  }  
+#   validates :platform, uniqueness: {
+#     scope: :platform_id,
+#     message: "Platform and Platform ID already exists"
+#   }  
 	enum :platform, [:udemy, :coursera], suffix: true
 	accepts_nested_attributes_for :topics, allow_destroy: true
 end
