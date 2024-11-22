@@ -7,7 +7,7 @@ class UdemyScraper
         'disable-extensions': true,
         'disable-plugins': true,
         'disable-dev-shm-usage': true,
-        'no-sandbox': true,
+        'no-sandbox': nil,
         'disable-background-networking': true,
         'disable-default-apps': true,
         'disable-sync': true,
@@ -25,7 +25,8 @@ class UdemyScraper
       headless: "new",
       proxy: nil,    
       process_timeout: 60,
-      timeout: 10
+      timeout: 10,
+      xvfb: true
     }
   end
 

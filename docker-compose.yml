@@ -28,7 +28,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://postgres:${DB_PASSWORD}@db:5432/stride_scholar
+      # DATABASE_URL: postgres://postgres:${DB_PASSWORD}@db:5432/stride_scholar
       DATABASE_PASSWORD: ${DB_PASSWORD}      
       RAILS_ENV: ${RAILS_ENV:-development}
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}

@@ -81,6 +81,7 @@ end
     scr = UdemyScraper.new
     course = scr.extract_course_details(link)    
     @room = Room.new(params_hash.merge({user: current_user, course: course}))    
+    Rails.logger.debug course.errors
     if @room.save
       redirect_to room_path(@room), notice: 'Room was successfully created.'      
     else      
