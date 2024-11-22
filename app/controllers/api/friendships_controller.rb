@@ -3,7 +3,7 @@ class Api::FriendshipsController < Api::BaseController
     friend = User.find(params[:friend_id])
     current_user.add_friend(friend)
     render json: {
-    	status: 'success'
+    	status: 'success',
     	message: 'Friend request sent!'
     }
   end
@@ -12,7 +12,7 @@ class Api::FriendshipsController < Api::BaseController
     friend = User.find(params[:friend_id])
     current_user.accept_friend(friend)
     render json: {
-    	status: 'success'
+    	status: 'success',
     	message: 'Friend request accepted!'
     }
   end
